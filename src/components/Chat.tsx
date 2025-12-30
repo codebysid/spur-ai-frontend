@@ -1,44 +1,40 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { sendMessage } from "../api/chat";
-import { type ChatMessage } from "../types/chat";
 import MessageBubble from "./MessageBubble";
 import ChatInput from "./ChatInput";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { addLLMAnswer, addUserQuery } from "../redux/slices/messages";
+import { setSessionId } from "../redux/slices/sessionId";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Chat() {
-    const [messages, setMessages] = useState<ChatMessage[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [sessionId, setSessionId] = useState<string | undefined>(
-        localStorage.getItem("sessionId") || undefined
-    );
+    const dispatch = useAppDispatch()
+    const messages = useAppSelector(state => state.messages)
+    const sessionId = useAppSelector(state => state.sessionId)
+
+    const { mutate, isPending: loading } = useMutation({
+        mutationFn: async (text: string) => await sendMessage(text, sessionId),
+
+        onMutate: (text) => {
+            dispatch(addUserQuery(text))
+        },
+
+        onSuccess: (data) => {
+            dispatch(setSessionId(data.sessionId))
+            dispatch(addLLMAnswer(data.reply))
+        },
+
+        onError: () => {
+            dispatch(addLLMAnswer("Something went wrong. Please try again."))
+        }
+    })
+
 
     const bottomRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, loading]);
-
-    const handleSend = async (text: string) => {
-        setMessages((prev) => [...prev, { sender: "user", text }]);
-        setLoading(true);
-
-        try {
-            const res = await sendMessage(text, sessionId);
-            setSessionId(res.sessionId);
-            localStorage.setItem("sessionId", res.sessionId);
-
-            setMessages((prev) => [
-                ...prev,
-                { sender: "ai", text: res.reply },
-            ]);
-        } catch {
-            setMessages((prev) => [
-                ...prev,
-                { sender: "ai", text: "Something went wrong. Please try again." },
-            ]);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     return (
         <div
@@ -63,7 +59,7 @@ export default function Chat() {
                     overflowY: "auto",
                 }}
             >
-                {messages.map((m, i) => (
+                {messages && messages.map((m, i) => (
                     <MessageBubble key={i} {...m} />
                 ))}
 
@@ -75,7 +71,7 @@ export default function Chat() {
             </div>
 
             <div style={{ padding: 16 }}>
-                <ChatInput onSend={handleSend} disabled={loading} />
+                <ChatInput onSend={mutate} disabled={loading} />
             </div>
         </div>
     );
