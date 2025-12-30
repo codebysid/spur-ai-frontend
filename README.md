@@ -27,8 +27,6 @@ It demonstrates **frontend + backend architecture**, **LLM integration**, **rate
 
 ## 🚀 How to run it locally ?
 
-#### 1. Frontend
-
 #### Clone repo:
 
 ```bash
