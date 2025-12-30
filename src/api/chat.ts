@@ -16,3 +16,20 @@ export async function sendMessage(
 
     return res.json();
 }
+
+export async function getMessages(
+    sessionId?: string
+) {
+    const res = await fetch(`${backendUrl}/chat/all-messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId }),
+    });
+    if (!res.ok) {
+        throw new Error("Failed to get messages");
+    }
+    const data = await res.json()
+    console.log({ data })
+
+    return data;
+}
