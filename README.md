@@ -1,73 +1,75 @@
-# React + TypeScript + Vite
+# Spur – AI-Powered Customer Support Chat
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Spur is a lightweight AI-powered customer support chat application for an imaginary e-commerce store.  
+It demonstrates **frontend + backend architecture**, **LLM integration**, **rate limiting**, **Redis usage**, and **clean system design**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧱 Tech Stack
 
-## React Compiler
+### Frontend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + TypeScript
+- Tanstack Query
+- Redux
+- Local state + browser storage for caching
 
-## Expanding the ESLint configuration
+### Backend
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js
+- Express.js
+- TypeScript
+- Supabase (PostgreSQL)
+- Redis (Upstash)
+- Free LLM API (Groq)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 How to run it locally ?
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+#### 1. Frontend
+
+#### Clone repo:
+
+```bash
+$ git clone <repo_url or ssh>
+$ cd <directory>
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+#### Install dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+$ pnpm install
 ```
+
+#### Set environent variables:
+
+```bash
+$ VITE_BACKEND_URL=http://localhost:4000
+```
+
+#### Run dev Server:
+
+```bash
+$ pnpm run dev
+```
+
+#### Backend repo, setup and all details: https://github.com/codebysid/spur-ai-backend
+
+## ✨ Features
+
+- AI-powered customer support chat
+- Session-based conversations (no authentication)
+- Browser Caching for conversations and sessions
+- Redux for global state store
+- Tanstack query for efficient api calls and optimization
+
+---
+
+## 🏗 Architecture Overview
+
+- User enters a message
+- UI optimistically updates the message list
+- Message is sent to the backend API
+- Backend returns AI response + session ID
+- Frontend updates the chat and persists it locally
