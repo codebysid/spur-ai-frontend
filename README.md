@@ -1,5 +1,7 @@
 # Spur – AI-Powered Customer Support Chat
 
+Live here: https://spur-ai-frontend-one.vercel.app/
+
 Spur is a lightweight AI-powered customer support chat application for an imaginary e-commerce store.  
 It demonstrates **frontend + backend architecture**, **LLM integration**, **rate limiting**, **Redis usage**, and **clean system design**.
 
@@ -7,21 +9,10 @@ It demonstrates **frontend + backend architecture**, **LLM integration**, **rate
 
 ## 🧱 Tech Stack
 
-### Frontend
-
 - React + TypeScript
 - Tanstack Query
 - Redux
 - Local state + browser storage for caching
-
-### Backend
-
-- Node.js
-- Express.js
-- TypeScript
-- Supabase (PostgreSQL)
-- Redis (Upstash)
-- Free LLM API (Groq)
 
 ---
 
