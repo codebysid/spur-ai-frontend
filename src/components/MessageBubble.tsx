@@ -1,4 +1,4 @@
-import { type ChatMessage } from "../types/chat";
+import { type ChatMessage } from "../types/types";
 
 export default function MessageBubble({ sender, text }: ChatMessage) {
     const isUser = sender === "user";

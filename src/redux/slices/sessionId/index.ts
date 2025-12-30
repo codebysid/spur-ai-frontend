@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: string | undefined = localStorage.getItem("sessionId") || undefined
+const initialState: string | null = localStorage.getItem("sessionId") || null
 
 export const sessionSlice = createSlice({
     initialState,

@@ -6,14 +6,15 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addLLMAnswer, addUserQuery } from "../redux/slices/messages";
 import { setSessionId } from "../redux/slices/sessionId";
 import { useMutation } from "@tanstack/react-query";
+import type { ApiError, ChatResponse } from "../types/types";
 
 export default function Chat() {
     const dispatch = useAppDispatch()
     const messages = useAppSelector(state => state.messages)
     const sessionId = useAppSelector(state => state.sessionId)
 
-    const { mutate, isPending: loading } = useMutation({
-        mutationFn: async (text: string) => await sendMessage(text, sessionId),
+    const { mutate, isPending: loading } = useMutation<ChatResponse, ApiError, string>({
+        mutationFn: async (text: string) => await sendMessage(text, sessionId || undefined),
 
         onMutate: (text) => {
             dispatch(addUserQuery(text))
@@ -24,8 +25,16 @@ export default function Chat() {
             dispatch(addLLMAnswer(data.reply))
         },
 
-        onError: () => {
-            dispatch(addLLMAnswer("Something went wrong. Please try again."))
+        onError: (error) => {
+            if (error.status === 429) {
+                dispatch(addLLMAnswer("You cannot do concurrent requests, otherwise you will be spammed and reported"));
+            }
+            else if (error.status === 400) {
+                dispatch(addLLMAnswer("Message invalid"));
+            }
+            else {
+                dispatch(addLLMAnswer("Something went wrong. Please try again."));
+            }
         }
     })
 

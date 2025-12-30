@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { ChatMessage } from "../../../types/chat";
+import type { ChatMessage } from "../../../types/types";
 import { localStorageKeys } from "../../../utils/helper";
 import { getMessages } from "../../../api/chat";
 
@@ -11,7 +11,7 @@ async function initState() {
     const sessionId = localStorage.getItem(localStorageKeys.sessionId)
     if (sessionId) {
         const result = await getMessages(sessionId)
-        if (result) {
+        if (result && result.length > 0) {
             localStorage.setItem(localStorageKeys.messages, JSON.stringify(result))
             return result
         }
