@@ -5,20 +5,10 @@ export default function MessageBubble({ sender, text }: ChatMessage) {
 
     return (
         <div
-            style={{
-                display: "flex",
-                justifyContent: isUser ? "flex-end" : "flex-start",
-                marginBottom: 8,
-            }}
+            className={`flex ${isUser ? " justify-end" : " justify-start"} mb-4`}
         >
             <div
-                style={{
-                    maxWidth: "70%",
-                    padding: "10px 14px",
-                    borderRadius: 12,
-                    background: isUser ? "#2563eb" : "#e5e7eb",
-                    color: isUser ? "#fff" : "#000",
-                }}
+                className={`max-w-[70%] p-2.5 rounded-xl ${isUser && "bg-primary"}`}
             >
                 {text}
             </div>

@@ -3,7 +3,9 @@ import Chat from './components/Chat'
 
 function App() {
   return (
-    <Chat />
+    <div className=' flex justify-center items-center min-h-screen'>
+      <Chat />
+    </div>
   )
 }
 

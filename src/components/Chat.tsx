@@ -47,26 +47,17 @@ export default function Chat() {
 
     return (
         <div
-            style={{
-                maxWidth: 600,
-                margin: "40px auto",
-                border: "1px solid #ddd",
-                borderRadius: 12,
-                display: "flex",
-                flexDirection: "column",
-                height: "80vh",
-            }}
+            className="max-w-150 border border-secondary rounded-sm flex flex-col justify-center w-full h-[80vh]"
         >
-            <div style={{ padding: 16, borderBottom: "1px solid #ddd" }}>
+            <div
+                className=" p-4 border-b border-secondary"
+            >
                 <strong>AI Support Chat</strong>
             </div>
 
             <div
-                style={{
-                    flex: 1,
-                    padding: 16,
-                    overflowY: "auto",
-                }}
+
+                className=" flex-1 p-4 overflow-auto"
             >
                 {messages && messages.map((m, i) => (
                     <MessageBubble key={i} {...m} />
@@ -79,7 +70,7 @@ export default function Chat() {
                 <div ref={bottomRef} />
             </div>
 
-            <div style={{ padding: 16 }}>
+            <div className="p-4">
                 <ChatInput onSend={mutate} disabled={loading} />
             </div>
         </div>
