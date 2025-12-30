@@ -9,7 +9,6 @@ const Home = () => {
                 <p className=" text-sm lg:text-xl w-[60%] lg:w-[80%] text-center lg:text-left">
                     A demo e-commerce store with AI-powered customer support
                 </p>
-
             </div>
             <p className=" text-sm lg:text-xl w-[60%] lg:w-[80%] text-center lg:text-left">Ask questions about orders, shipping, returns or any other query to our AI agent</p>
             <CornerDownRight className=" size-20 hidden lg:block lg:absolute top-full left-[76%] stroke-1" />
