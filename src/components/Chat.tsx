@@ -47,24 +47,25 @@ export default function Chat() {
 
     return (
         <div
-            className="max-w-150 border border-secondary rounded-sm flex flex-col justify-center w-full h-[80vh]"
+            className="w-[80%] lg:w-[35%] border border-secondary rounded-sm flex flex-col justify-center h-[60vh] bg-[#171717]"
         >
             <div
-                className=" p-4 border-b border-secondary"
+                className=" p-4 border-b border-secondary text-sm lg:text-xl"
             >
                 <strong>AI Support Chat</strong>
             </div>
 
             <div
-
                 className=" flex-1 p-4 overflow-auto"
             >
-                {messages && messages.map((m, i) => (
+                {messages.length > 0 ? messages.map((m, i) => (
                     <MessageBubble key={i} {...m} />
-                ))}
+                )) : <div className=" flex justify-center items-center h-full">
+                    <p className=" text-sm lg:text-xl font-medium">Start conversation</p>
+                </div>}
 
                 {loading && (
-                    <MessageBubble sender="ai" text="Agent is typing..." />
+                    <MessageBubble sender="ai" text="Agent is thinking..." shiny />
                 )}
 
                 <div ref={bottomRef} />

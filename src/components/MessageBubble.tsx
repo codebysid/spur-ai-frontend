@@ -1,6 +1,10 @@
 import { type ChatMessage } from "../types/types";
 
-export default function MessageBubble({ sender, text }: ChatMessage) {
+interface IMessageBubble extends ChatMessage {
+    shiny?: boolean
+}
+
+export default function MessageBubble({ sender, text, shiny = false }: IMessageBubble) {
     const isUser = sender === "user";
 
     return (
@@ -8,7 +12,7 @@ export default function MessageBubble({ sender, text }: ChatMessage) {
             className={`flex ${isUser ? " justify-end" : " justify-start"} mb-4`}
         >
             <div
-                className={`max-w-[70%] p-2.5 rounded-xl ${isUser && "bg-primary"}`}
+                className={`text-sm lg:text-base lg:max-w-[70%] p-2.5 rounded-xl ${isUser && "bg-primary"} ${shiny && ".shine-text"}`}
             >
                 {text}
             </div>

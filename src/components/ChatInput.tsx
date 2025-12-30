@@ -34,8 +34,8 @@ export default function ChatInput({ onSend, disabled }: Props) {
     };
 
     return (
-        <div className="flex gap-2 border border-secondary px-2 py-2 rounded-sm">
-            <div className="w-full flex items-center gap-2  px-2">
+        <div className="flex gap-2 border border-secondary px-1 lg:px-2 py-1 lg:py-2 rounded-sm">
+            <div className="w-full flex items-center gap-2 px-1 lg:px-2">
                 <textarea
                     ref={textareaRef}
                     value={message}
@@ -47,17 +47,12 @@ export default function ChatInput({ onSend, disabled }: Props) {
                             handleSend();
                         }
                     }}
-                    placeholder="Type your message..."
+                    placeholder="Type your query..."
                     disabled={disabled}
                     maxLength={maxInputLength}
-                    className="
-            w-full resize-none overflow-y-auto
-            text-white/80
-            focus:border-none focus:ring-0 focus:outline-0
-            max-h-40
-          "
+                    className="text-sm lg:text-base w-full resize-none overflow-y-auto text-white/80 focus:border-none focus:ring-0 focus:outline-0 max-h-40"
                 />
-                <span className="text-sm">
+                <span className="text-xs lg:text-sm">
                     {message.trim().length}/{maxInputLength}
                 </span>
             </div>
@@ -65,10 +60,10 @@ export default function ChatInput({ onSend, disabled }: Props) {
             <Button
                 onClick={handleSend}
                 size="lg"
-                className="rounded-full px-3 py-1"
+                className="rounded-full p-3 lg:px-3 lg:py-1"
                 disabled={disabled || message.length === 0}
             >
-                <SendHorizontal className=" size-4" />
+                <SendHorizontal className=" size-3 lg:size-4" />
             </Button>
         </div>
     );
