@@ -47,7 +47,7 @@ export default function Chat() {
 
     return (
         <div
-            className="w-[80%] lg:w-[35%] border border-secondary rounded-sm flex flex-col justify-center h-[60vh] bg-[#171717]"
+            className="w-[80%] lg:w-[35%] border border-secondary rounded-sm flex flex-col justify-center h-[65vh] lg:h-[85vh] bg-[#171717]"
         >
             <div
                 className=" p-4 border-b border-secondary text-sm lg:text-xl"
